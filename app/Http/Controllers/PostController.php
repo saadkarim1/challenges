@@ -32,16 +32,32 @@ class PostController extends Controller
         return "introuvable";
     }
     
-    public function update($id) {
+    public function update(Request $request, $id) {
+
+
         $post = Post::find($id);
         
         if ($post) {
-            $post->title = "title two";
+            $post->title = $request->title;
+            $post->title = $request->content;
+            $post->title = $request->author;
             return $post;
         }
         return "introuvable";
-        
     }
+
+    public function updateStatus(Request $request ,$id){
+                $post = Post::find($id);
+                if ($post) {
+            $post->status = $request->status;
+            $post->save();
+            
+            return $post;
+        }
+        return "introuvable";
+
+    }
+
 
     public function destroy($id) {
         $post = Post::find($id);
